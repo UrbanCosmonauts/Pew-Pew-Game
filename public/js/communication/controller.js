@@ -11,7 +11,8 @@ var Controller = (function(){
     this.data = {
       yAngle: 0,
       accelerate: false,
-      decelerate: false
+      decelerate: false,
+      shoot: false
     };
   }
 
@@ -93,6 +94,20 @@ var Controller = (function(){
    */
   Controller.prototype.accelerateEnd = function(){
     this.data.accelerate = false;
+  };
+
+  /**
+   * shootStart
+   */
+  Controller.prototype.shootStart = function(){
+    this.data.shoot = true;
+  };
+
+  /**
+   * shootEnd
+   */
+  Controller.prototype.shootEnd = function(){
+    this.data.shoot = false;
   };
 
   /*

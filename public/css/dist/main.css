@@ -124,7 +124,8 @@ canvas {
 }
 
 .control__decelerate--button,
-.control__accelerate--button {
+.control__accelerate--button,
+.control__shoot--button {
 	-webkit-transform: translateY(0px);
 	    -ms-transform: translateY(0px);
 	        transform: translateY(0px);
@@ -133,10 +134,11 @@ canvas {
 }
 
 .control__decelerate--button.is-pressed,
-.control__accelerate--button.is-pressed {
-	-webkit-transform: translateY(4px);
-	    -ms-transform: translateY(4px);
-	        transform: translateY(4px);
+.control__accelerate--button.is-pressed,
+.control__shoot--button.is-pressed {
+	-webkit-transform: translateY(3px);
+	    -ms-transform: translateY(3px);
+	        transform: translateY(3px);
 }
 
 /* -----------------------------------------------------------------------------

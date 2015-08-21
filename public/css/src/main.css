@@ -124,14 +124,16 @@ canvas {
 }
 
 .control__decelerate--button,
-.control__accelerate--button {
+.control__accelerate--button,
+.control__shoot--button {
 	transform: translateY(0px);
 	transition: transform 0.1s;
 }
 
 .control__decelerate--button.is-pressed,
-.control__accelerate--button.is-pressed {
-	transform: translateY(4px);
+.control__accelerate--button.is-pressed,
+.control__shoot--button.is-pressed {
+	transform: translateY(3px);
 }
 
 /* -----------------------------------------------------------------------------
