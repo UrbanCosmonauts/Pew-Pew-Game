@@ -42,7 +42,7 @@ var invaderYellowCount  = 0;
 var players;
 
 
-var lasers;
+var laser;
 var laserInterval;
 
 var invaderYellows;
@@ -57,11 +57,22 @@ var invaderWhiteInterval;
 var invaderGreens;
 var invaderGreenInterval;
 
+<<<<<<< HEAD
 var goldCoins;
 var goldCoinInterval;
 
 var heartBonuses;
 var heartBonusInterval;
+=======
+var lasers;
+var laserInterval;
+
+var fire;
+var fireInterval;
+
+var fishes;
+var fishInterval;
+>>>>>>> Initial attempt at fire working
 
 
 var music;
@@ -172,6 +183,7 @@ var state = {
     this.load.image('player3', 'assets/players/player3.png');
     this.load.image('player4', 'assets/players/player4.png');
 
+<<<<<<< HEAD
     // enemies
     this.load.image('enemy1', 'assets/enemies/invader-green.png');
     this.load.image('enemy2', 'assets/enemies/invader-white.png');
@@ -181,8 +193,10 @@ var state = {
     //heart
     this.load.image('heartlive', 'assets/hearts/heart-lives.png');
     this.load.image('heartbonus', 'assets/hearts/hearts-bonus.png');
+=======
     // fire 
     this.load.image('fire', 'assets/fire/orange.png');
+>>>>>>> Initial attempt at fire working
   },
 
   /*
@@ -265,16 +279,23 @@ var state = {
        Object created that holds all types of platforms a player can jump on
       author: Alex Leonetti
     */
-    platforms = game.add.group();
-    platforms.enableBody = true;
 
+<<<<<<< HEAD
     lasers = game.add.group();
-    fire = game.add.group();
     invaderGreens = game.add.group();
     invaderPinks = game.add.group();
     invaderWhites = game.add.group();
     invaderYellows = game.add.group();
     heartBonuses = game.add.group();
+=======
+    water = game.add.group();
+    water.enableBody = true; 
+
+    purpleDinos = game.add.group();
+
+    lasers = game.add.group();
+    fire = game.add.group();
+>>>>>>> Initial attempt at fire working
 
 
 
@@ -521,7 +542,10 @@ var state = {
     });
     this.scoreText.setText("");
     this.gameStarted = true;
+<<<<<<< HEAD
     // this.ground.body.velocity.x = -SPEED;
+=======
+>>>>>>> Initial attempt at fire working
 
     this.levelGround();
     // waterTimeout = setTimeout(function(){
@@ -709,6 +733,18 @@ var state = {
     this.laser.body.velocity.y = Math.sin(RAD_ANGLE[i])*300;
     this.laser.angle = ANGLE[0];
   },
+<<<<<<< HEAD
+  // spawnFish: function() {
+  //   this.fish = fishes.create(700, 650, 'fish');
+  //   this.fish.animations.add('fly', [0,1], 10, true);
+  //   this.fish.animations.play('fly');
+  //   this.physics.arcade.enableBody(this.fish);
+  //   this.fish.body.immovable = true;
+  //   this.fish.body.velocity.y = -900;
+  //   this.fish.body.velocity.x = -SPEED;
+  //   this.fish.body.gravity.y = GRAVITY;
+  // },
+=======
   spawnFish: function() {
     this.fish = fishes.create(700, 650, 'fish');
     this.fish.animations.add('fly', [0,1], 10, true);
@@ -727,6 +763,7 @@ var state = {
     this.fire.body.velocity.y = Math.sin(RAD_ANGLE[i])*-100;
     this.fire.lifespan = 1500;
   },
+>>>>>>> Initial attempt at fire working
 
 
   /*
@@ -803,7 +840,11 @@ var state = {
     //   context.spawnFloatingPlatform();
     // }, 3000/(SPEED/100));
 
-
+<<<<<<< HEAD
+    // purpleDinoInterval = setInterval(function() {
+    //   context.spawnPurpleDino();
+    // }, 6000/(SPEED/100));
+=======
 
     fireInterval = setInterval(function() {
       var xPosition = [];
@@ -834,7 +875,11 @@ var state = {
         context.spawnLaser(xPosition[i] + xOffset[i], yPosition[i] + yOffset[i], i);
       });
     }, 200);
+>>>>>>> Initial attempt at fire working
 
+    // orangeDinoInterval = setInterval(function() {
+    //   context.spawnOrangeDino();
+    // }, 5000/(SPEED/100));
 
   },
 
