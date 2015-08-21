@@ -142,6 +142,19 @@ var state = {
     this.load.audio('lucky', ['assets/sounds/lucky.mp3']);
     this.load.audio('dead', ['assets/sounds/dead.mp3']);
     this.load.audio('jump', ['assets/sounds/jump.mp3']);
+
+    ////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
+    // NEW ASSETS
+    // Here be the new graphics from Nick. Do not remove any graphics
+    // below.
+    ////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
+
+    this.load.image('starsSmall', 'assets/backgrounds/stars-small.png');
+    this.load.image('starsBig', 'assets/backgrounds/stars-big.png');
+    this.load.image('boundaryTop', 'assets/bounds/boundary-top.png');
+    this.load.image('boundaryBottom', 'assets/bounds/boundary-bottom.png');
   },
 
   /*
@@ -178,14 +191,28 @@ var state = {
     */
     this.physics.startSystem(Phaser.Physics.ARCADE);
 
-    /*
-      background
-      Description:
-       Creates an autoscrolling world, however the assets in the world do not move automatically
-      author: Alex Leonetti
-    */
-    this.background = this.add.tileSprite(0,0, this.world.width, this.world.height, 'background');
-    this.background.autoScroll(-SPEED,0);
+    /**
+     * backgrounds
+     * Description: multiple backgrounds!
+     */
+    // add background colour
+    game.stage.backgroundColor = 0x14141e;
+    
+    // add small stars and auto scroll
+    this.bgStarsSmall = this.add.tileSprite(0, 0, this.world.width, this.world.height, 'starsSmall');
+    this.bgStarsSmall.autoScroll(-20, 0);
+    
+    // add big stars and auto scroll
+    this.bgStarsBig = this.add.tileSprite(0, 0, this.world.width, this.world.height, 'starsBig');
+    this.bgStarsBig.autoScroll(-40, 0);
+    
+    // add top boundary
+    this.bgBoundaryTop = this.add.tileSprite(0, 0, this.world.width, 108, 'boundaryTop');
+    this.bgBoundaryTop.autoScroll(-400, 0);
+
+    // add bottom boundary
+    this.bgBoundaryBottom = this.add.tileSprite(0, this.world.height - 108, this.world.width, 108, 'boundaryBottom');
+    this.bgBoundaryBottom.autoScroll(-400, 0);
 
     /*
       players
@@ -450,12 +477,6 @@ var state = {
       player.dead = true;
     }.bind(this));
     // this.player.animations.play('right');
-
-    this.ground = platforms.create(0, game.world.height-64, 'ground');
-    this.ground.scale.setTo(20,2);
-    this.ground.body.immovable = true;
-
-    this.background.autoScroll(-SPEED * .30 ,0);
 
     this.scoreText.setText("CONNECT PHONE TO ADD PLAYER");
 
