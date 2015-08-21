@@ -828,9 +828,9 @@ var state = {
       var yOffset = [];
       context.players.forEach(function(player, i){
         xPosition[i] = player.body.x + player.body.halfWidth;
-        yPosition[i] = player.body.y + player.body.halfHeight+10;
-        xOffset[i] = Math.cos(RAD_ANGLE[i])*60;
-        yOffset[i] = Math.sin(RAD_ANGLE[i])*60;
+        yPosition[i] = player.body.y + player.body.halfHeight;
+        xOffset[i] = Math.cos(RAD_ANGLE[0])*60;
+        yOffset[i] = Math.sin(RAD_ANGLE[0])*60;
         context.spawnLaser(xPosition[i] + xOffset[i], yPosition[i] + yOffset[i], i);
       });
     }, 200);
