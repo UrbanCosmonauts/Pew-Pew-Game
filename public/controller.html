@@ -10,7 +10,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 
-<body>
+<body class="control__body">
 
 <svg width="568" height="320" viewBox="0 0 568 320" class="control">
   
@@ -61,8 +61,38 @@
 </svg>
 
 <script src="js/controller.js"></script>
-<script type="text/javascript">
-  window.screen.lockOrientation('landscape-primary');
+<script>
+
+  var doOrientationChanges = function(orientation) {
+    orientation = orientation || window.orientation;
+
+    if (orientation === 0) {
+      document.querySelector('.control').classList.remove('rotate180');
+      document.querySelector('.control').classList.remove('rotate90left');
+      document.querySelector('.control').classList.add('rotate90right');
+    }
+    if (orientation == 180) {
+      document.querySelector('.control').classList.remove('rotate90left');
+      document.querySelector('.control').classList.remove('rotate90right');
+      document.querySelector('.control').classList.add('rotate180');
+    }
+    if (orientation == -90) {
+      document.querySelector('.control').classList.remove('rotate90left');
+      document.querySelector('.control').classList.remove('rotate90right');
+      document.querySelector('.control').classList.add('rotate180');
+    }
+    if (orientation == 90) {
+      document.querySelector('.control').classList.remove('rotate180');
+      document.querySelector('.control').classList.remove('rotate90right');
+      document.querySelector('.control').classList.remove('rotate90left');
+    }
+  };
+
+  window.addEventListener("orientationchange", function() {
+    doOrientationChanges(window.orientation);
+  }, false);
+  doOrientationChanges();
+
 </script>
 </body>
 
