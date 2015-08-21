@@ -97,3 +97,32 @@ var vibrate = function(ms) {
     navigator.vibrate(ms);
   }
 }
+
+/**
+ * control shoot button
+ * Description: When the shoot button is touched, it will invoke the shooting
+ * from the ship. When the shoot button touch event has ended, it will cause
+ * shooting from the ship to stop.
+ */
+$('.control__shoot--button')
+.on('touchstart', function() {
+  vibrate(50);
+  console.log('shoot start');
+  this.classList.add('is-pressed');
+  controller.shootStart();
+})
+.on('touchend', function() {
+  console.log('shoot end');
+  this.classList.remove('is-pressed');
+  controller.shootEnd();
+});
+
+/**
+ * vibrate
+ * Description: Invokes vibration feedback on the player control
+ */
+var vibrate = function(ms) {
+  if (android) {
+    navigator.vibrate(ms);
+  }
+}
