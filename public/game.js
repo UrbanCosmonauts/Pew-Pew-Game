@@ -130,7 +130,7 @@ var state = {
     this.load.image("background", "assets/background.jpg");
     this.load.image("floating", "assets/floating.png");
     // this.load.spritesheet("player", "assets/hero.png", 33.16, 49);
-    this.load.image("player", "assets/spaceship.png");
+    // this.load.image("player", "assets/spaceship.png");
     this.load.spritesheet("fish", "assets/fish.png", 30, 40);
     this.load.spritesheet("orangeDino", "assets/orange-dino.png", 34.5, 42);
     this.load.spritesheet("purpleDino", "assets/purple-dino.png", 118, 150);
@@ -151,10 +151,17 @@ var state = {
     ////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////
 
+    // backgrounds
     this.load.image('starsSmall', 'assets/backgrounds/stars-small.png');
     this.load.image('starsBig', 'assets/backgrounds/stars-big.png');
     this.load.image('boundaryTop', 'assets/bounds/boundary-top.png');
     this.load.image('boundaryBottom', 'assets/bounds/boundary-bottom.png');
+
+    // players
+    this.load.image('player1', 'assets/players/player1.png');
+    this.load.image('player2', 'assets/players/player2.png');
+    this.load.image('player3', 'assets/players/player3.png');
+    this.load.image('player4', 'assets/players/player4.png');
   },
 
   /*
@@ -293,7 +300,7 @@ var state = {
     if (RESET){
       if (NUM_PLAYERS > this.players.length){ 
         for (var i = this.players.length; i<NUM_PLAYERS; i++){
-          this.players[i] = players.create(0,0,'player');      
+          this.players[i] = players.create(0,0,'player'+(i+1));      
           this.players[i].anchor.setTo(0.5, 0.5);
           this.physics.arcade.enableBody(this.players[i]);
           this.players[i].reset(this.world.width / 4, 200+i*80);
@@ -356,7 +363,7 @@ var state = {
         }
       });
       platforms.forEach(function(p){
-        if(p.body.x < -800 || p.body.y < -48 ) {
+        if(p.body.x < -960 || p.body.y < -48 ) {
           p.kill();
         }
       });
@@ -608,26 +615,26 @@ var state = {
     author: Alex Leonetti
   */
   spawnPlatform: function() {
-    this.ledge = platforms.create(800, this.generateRandomY(), 'platform');
+    this.ledge = platforms.create(960, this.generateRandomY(), 'platform');
     this.ledge.body.immovable = true;
     this.ledge.body.velocity.x = -SPEED;
     this.ledge.scale.setTo(2,1);
   },
   spawnFallingPlatform: function() {
-    this.ledge = platforms.create(800, this.generateRandomY(), 'falling');
+    this.ledge = platforms.create(960, this.generateRandomY(), 'falling');
     this.ledge.body.immovable = false;
     this.ledge.body.velocity.x = -SPEED;
     this.ledge.scale.setTo(2,1);
   },
   spawnNegativePlatform: function() {
-    this.ledge = platforms.create(800, 600, 'negative');
+    this.ledge = platforms.create(960, 680, 'negative');
     this.ledge.body.immovable = true;
     this.ledge.body.velocity.x = -SPEED;
     this.ledge.body.velocity.y =  -(Math.random() * 200);
     this.ledge.scale.setTo(2,1);
   },
   spawnFloatingPlatform: function(y) {
-    this.ledge = platforms.create(800, y || this.generateRandomGreaterY(), 'floating');
+    this.ledge = platforms.create(960, y || this.generateRandomGreaterY(), 'floating');
     this.ledge.body.immovable = true;
     this.ledge.body.velocity.x = -SPEED;
     this.ledge.scale.setTo(2,2);
@@ -635,7 +642,7 @@ var state = {
   spawnWater: function() {
     var context = this;
     waterInterval = setInterval(function(){
-      context.water = water.create(800, 570, 'water');
+      context.water = water.create(960, 570, 'water');
       context.water.body.immovable = true;
       context.water.body.velocity.x = -SPEED;
     },3315/(SPEED/100));
@@ -678,7 +685,7 @@ var state = {
     return this.lastGreaterNum;
   },
   spawnOrangeDino: function() {
-    this.orangeDino = orangeDinos.create(800, 495, 'orangeDino');
+    this.orangeDino = orangeDinos.create(960, 495, 'orangeDino');
     this.orangeDino.animations.add('walk', [0,1,2,3], 10, true);
     this.orangeDino.animations.play('walk');
     this.physics.arcade.enableBody(this.orangeDino);
@@ -735,7 +742,7 @@ var state = {
 
 
     this.spawnPlatform();
-    this.water = water.create(800, 570, 'water');
+    this.water = water.create(960, 570, 'water');
     this.water.immovable = true;
     this.water.body.velocity.x = -SPEED;
     this.spawnWater();
@@ -777,7 +784,7 @@ var state = {
     clearInterval(laserInterval);
 
 
-    this.ground = platforms.create(800, game.world.height-64, 'ground');
+    this.ground = platforms.create(960, game.world.height-64, 'ground');
     this.ground.scale.setTo(20,2);
     this.ground.body.immovable = true;
     this.ground.body.velocity.x = -SPEED;
@@ -833,8 +840,8 @@ var state = {
   author: Alex Leonetti
 */
 var game = new Phaser.Game(
-  800,
-  600,
+  960,
+  680,
   Phaser.AUTO,
   'game',
   state
