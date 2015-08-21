@@ -12,7 +12,9 @@ var Controller = (function(){
       yAngle: 0,
       accelerate: false,
       decelerate: false,
-      shoot: false
+      shoot: false,
+      score: 0,
+      lives: 3
     };
   }
 
