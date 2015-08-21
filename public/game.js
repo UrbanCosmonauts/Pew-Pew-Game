@@ -415,10 +415,11 @@ var state = {
 
       if (SHOOT[i] && !player.dead) {
         var xPosition = player.body.x + player.body.halfWidth;
-        var yPosition = player.body.y + player.body.halfHeight+10;
+        var yPosition = player.body.y + player.body.halfHeight;
         var xOffset = Math.cos(RAD_ANGLE[i])*60;
         var yOffset = Math.sin(RAD_ANGLE[i])*60;
-        this.spawnLaser(player.body.x + xOffset, yPosition + yOffset);
+
+        this.spawnLaser(xPosition + xOffset, yPosition + yOffset, i);
       }
 
       if(this.gameStarted){
@@ -707,18 +708,18 @@ var state = {
     this.laser.anchor.setTo(.5, .5);
     this.laser.body.velocity.x = Math.cos(RAD_ANGLE[i])*300;
     this.laser.body.velocity.y = Math.sin(RAD_ANGLE[i])*300;
-    this.laser.angle = ANGLE[0];
+    this.laser.angle = ANGLE[i];
   },
-  spawnFish: function() {
-    this.fish = fishes.create(700, 650, 'fish');
-    this.fish.animations.add('fly', [0,1], 10, true);
-    this.fish.animations.play('fly');
-    this.physics.arcade.enableBody(this.fish);
-    this.fish.body.immovable = true;
-    this.fish.body.velocity.y = -900;
-    this.fish.body.velocity.x = -SPEED;
-    this.fish.body.gravity.y = GRAVITY;
-  },
+  // spawnFish: function() {
+  //   this.fish = fishes.create(700, 650, 'fish');
+  //   this.fish.animations.add('fly', [0,1], 10, true);
+  //   this.fish.animations.play('fly');
+  //   this.physics.arcade.enableBody(this.fish);
+  //   this.fish.body.immovable = true;
+  //   this.fish.body.velocity.y = -900;
+  //   this.fish.body.velocity.x = -SPEED;
+  //   this.fish.body.gravity.y = GRAVITY;
+  // },
   spawnFire: function(x,y,i) {
     this.fire = fire.create(x, y, 'fire');
     this.physics.arcade.enableBody(this.fire);
@@ -821,19 +822,19 @@ var state = {
 
 
 
-    laserInterval = setInterval(function() {
-      var xPosition = [];
-      var yPosition = [];
-      var xOffset = [];
-      var yOffset = [];
-      context.players.forEach(function(player, i){
-        xPosition[i] = player.body.x + player.body.halfWidth;
-        yPosition[i] = player.body.y + player.body.halfHeight;
-        xOffset[i] = Math.cos(RAD_ANGLE[0])*60;
-        yOffset[i] = Math.sin(RAD_ANGLE[0])*60;
-        context.spawnLaser(xPosition[i] + xOffset[i], yPosition[i] + yOffset[i], i);
-      });
-    }, 200);
+    // laserInterval = setInterval(function() {
+    //   var xPosition = [];
+    //   var yPosition = [];
+    //   var xOffset = [];
+    //   var yOffset = [];
+    //   context.players.forEach(function(player, i){
+    //     xPosition[i] = player.body.x + player.body.halfWidth;
+    //     yPosition[i] = player.body.y + player.body.halfHeight;
+    //     xOffset[i] = Math.cos(RAD_ANGLE[0])*60;
+    //     yOffset[i] = Math.sin(RAD_ANGLE[0])*60;
+    //     context.spawnLaser(xPosition[i] + xOffset[i], yPosition[i] + yOffset[i], i);
+    //   });
+    // }, 200);
 
 
   },
