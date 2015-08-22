@@ -830,19 +830,6 @@ var state = {
   //   // this.spawnFloatingPlatform(350);
 
 
-    fireInterval = setInterval(function() {
-      var xPosition = [];
-      var yPosition = [];
-      var xOffset = [];
-      var yOffset = [];
-      context.players.forEach(function(player, i){
-        xPosition[i] = player.body.x + player.body.halfWidth;// - player.body.halfWidth;
-        yPosition[i] = player.body.y + player.body.halfHeight;
-        xOffset[i] = Math.cos(RAD_ANGLE[i])*50;
-        yOffset[i] = Math.sin(RAD_ANGLE[i])*50;
-        context.spawnFire(xPosition[i] - xOffset[i], yPosition[i] - yOffset[i], i);
-      });
-    }, 200);
 
 
 
@@ -882,6 +869,19 @@ var state = {
   // }
 
   spawnAllEntities: function (argument) {
+    fireInterval = setInterval(function() {
+      var xPosition = [];
+      var yPosition = [];
+      var xOffset = [];
+      var yOffset = [];
+      this.players.forEach(function(player, i){
+        xPosition[i] = player.body.x + player.body.halfWidth;// - player.body.halfWidth;
+        yPosition[i] = player.body.y + player.body.halfHeight;
+        xOffset[i] = Math.cos(RAD_ANGLE[i])*50;
+        yOffset[i] = Math.sin(RAD_ANGLE[i])*50;
+        this.spawnFire(xPosition[i] - xOffset[i], yPosition[i] - yOffset[i], i);
+      }.bind(this));
+    }.bind(this), 200);
 
     invaderGreenInterval = setInterval(function (argument) {
       this.spawnInvaderGreen();
