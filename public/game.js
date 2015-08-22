@@ -1061,15 +1061,15 @@ var state = {
 
     invaderGreenInterval = setInterval(function (argument) {
       this.spawnInvaderGreen();
-    }.bind(this), 5000); 
+    }.bind(this), 3000); 
 
     invaderYellowInterval = setInterval(function (argument) {
       this.spawnInvaderYellow();
-    }.bind(this), 5000); 
+    }.bind(this), 3000); 
 
     invaderWhiteInterval = setInterval(function (argument) {
       this.spawnInvaderWhite();
-    }.bind(this), 5000); 
+    }.bind(this), 3000); 
 
     // invaderPinkInterval = setInterval(function() {
     //   var y = Math.random()*370+150;
