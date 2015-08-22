@@ -313,6 +313,7 @@ var state = {
     author: Alex Leonetti
   */
   update: function() {
+    TIME++;
 
     invaderYellows.forEach(function(o) {
       if(o && o.body.x < -100) {
@@ -370,13 +371,17 @@ var state = {
     this.physics.arcade.overlap(players, invaderPinks, this.setGameOver, null, this);
 
 
-    // this.physics.arcade.overlap(lasers, purpleDinos, function(){
-    //   this.purpleDino.kill();
-    // }, null, this);
+    this.physics.arcade.overlap(lasers, invaderYellows, function(group, item){
+      item.kill();
+    }, null, this);
 
-    // this.physics.arcade.overlap(lasers, orangeDinos, function(){
-    //   this.orangeDino.kill();
-    // }, null, this);
+    this.physics.arcade.overlap(lasers, invaderWhites, function(group, item){
+      item.kill();
+    }, null, this);
+
+    this.physics.arcade.overlap(lasers, invaderGreens, function(group, item){
+      item.kill();
+    }, null, this);
 
 
     // this.physics.arcade.collide(players, fishes, this.setGameOver, null, this);
@@ -444,6 +449,25 @@ var state = {
         }
       }
     }.bind(this));
+
+    
+    invaderGreens.forEach(function(invaderGreen){
+        invaderGreen.body.y = Math.sin(TIME/10)*50 +340;
+        // invaderGreen.body.velocity.y = -SPEED*Math.sin(game.time.now);
+        // invaderGreen.body.velocity.x = SPEED*Math.cos(game.time.now);
+    });
+
+    invaderYellows.forEach(function(invaderYellow){
+        invaderYellow.body.y = Math.sin(TIME/10)*50 +260;
+        // invaderGreen.body.velocity.y = -SPEED*Math.sin(game.time.now);
+        // invaderGreen.body.velocity.x = SPEED*Math.cos(game.time.now);
+    });
+
+    invaderWhites.forEach(function(invaderWhite){
+        invaderWhite.body.y = Math.sin(TIME/10)*50 +420;
+        // invaderGreen.body.velocity.y = -SPEED*Math.sin(game.time.now);
+        // invaderGreen.body.velocity.x = SPEED*Math.cos(game.time.now);
+    });
   },
 
   /*
@@ -513,7 +537,9 @@ var state = {
       clears the timeouts on death
     author: Alex Leonetti
   */
-  start: function() {  
+  start: function() {
+
+    this.spawnAllEntities();  
 
     var context = this;
     this.players.forEach(function(player){
@@ -522,20 +548,6 @@ var state = {
     });
     this.scoreText.setText("");
     this.gameStarted = true;
-    // this.ground.body.velocity.x = -SPEED;
-
-    this.levelGround();
-    // waterTimeout = setTimeout(function(){
-    //   context.levelWater();
-    // }, 20000);
-
-    groundTimeout = setTimeout(function(){
-      context.levelGround();
-    }, 38000);
-
-    flyTimeout = setTimeout(function() {
-      context.levelFly();
-    }, 58000);
        
   },
   move: function(){
@@ -561,12 +573,19 @@ var state = {
     author: Alex Leonetti
   */
   setGameOver: function() {
+
+    clearInterval(invaderYellowInterval);
+    clearInterval(invaderWhiteInterval);
+    clearInterval(invaderGreenInterval);
+
+
+
     RESETGAMEOVER = true;
 
     this.gameOver = true;
     this.gameStarted = false;
     this.scoreText.setText("PRESS JUMP TO\nTRY AGAIN");
-    this.background.autoScroll(0, 0);
+    // this.background.autoScroll(0, 0);
     this.players.forEach(function(player){
       player.dead = true;
       player.body.x = (32 * DEAD_PLAYER_X);
@@ -710,16 +729,6 @@ var state = {
     this.laser.body.velocity.y = Math.sin(RAD_ANGLE[i])*300;
     this.laser.angle = ANGLE[i];
   },
-  // spawnFish: function() {
-  //   this.fish = fishes.create(700, 650, 'fish');
-  //   this.fish.animations.add('fly', [0,1], 10, true);
-  //   this.fish.animations.play('fly');
-  //   this.physics.arcade.enableBody(this.fish);
-  //   this.fish.body.immovable = true;
-  //   this.fish.body.velocity.y = -900;
-  //   this.fish.body.velocity.x = -SPEED;
-  //   this.fish.body.gravity.y = GRAVITY;
-  // },
   spawnFire: function(x,y,i) {
     this.fire = fire.create(x, y, 'fire');
     this.physics.arcade.enableBody(this.fire);
@@ -727,6 +736,26 @@ var state = {
     this.fire.body.velocity.x = Math.cos(RAD_ANGLE[i])*-100;
     this.fire.body.velocity.y = Math.sin(RAD_ANGLE[i])*-100;
     this.fire.lifespan = 1500;
+  },
+  spawnInvaderGreen: function() {
+    this.invaderGreen = invaderGreens.create(1000, 390, 'enemy1');
+    this.physics.arcade.enableBody(this.invaderGreen);
+    this.invaderGreen.body.immovable = true;
+    this.invaderGreen.body.velocity.x = -SPEED;
+  },
+
+  spawnInvaderYellow: function() {
+    this.invaderYellow = invaderYellows.create(1000, 390, 'enemy4');
+    this.physics.arcade.enableBody(this.invaderYellow);
+    this.invaderYellow.body.immovable = true;
+    this.invaderYellow.body.velocity.x = -SPEED;
+  },
+
+  spawnInvaderWhite: function() {
+    this.invaderWhite = invaderWhites.create(1000, 390, 'enemy2');
+    this.physics.arcade.enableBody(this.invaderWhite);
+    this.invaderWhite.body.immovable = true;
+    this.invaderWhite.body.velocity.x = -SPEED;
   },
 
 
@@ -780,30 +809,25 @@ var state = {
       Everything spawned for the ground level
     author: Alex Leonetti
   */
-  levelGround: function() {
-    this.level = 'ground';
-    var context = this;
+  // levelGround: function() {
+  //   this.level = 'ground';
+  //   var context = this;
 
-    // clearInterval(platformInterval);
-    // clearInterval(platformFallingInterval);
-    // clearInterval(platformNegativeInterval);
-    // clearInterval(waterInterval);
-    // clearInterval(fishInterval);
-    clearInterval(laserInterval);
-
-
-    // this.ground = platforms.create(960, game.world.height-64, 'ground');
-    // this.ground.scale.setTo(20,2);
-    // this.ground.body.immovable = true;
-    // this.ground.body.velocity.x = -SPEED;
+  //   // clearInterval(platformInterval);
+  //   // clearInterval(platformFallingInterval);
+  //   // clearInterval(platformNegativeInterval);
+  //   // clearInterval(waterInterval);
+  //   // clearInterval(invaderGreenInterval);
+  //   clearInterval(laserInterval);
 
 
-    // this.spawnFloatingPlatform(350);
+  //   // this.ground = platforms.create(960, game.world.height-64, 'ground');
+  //   // this.ground.scale.setTo(20,2);
+  //   // this.ground.body.immovable = true;
+  //   // this.ground.body.velocity.x = -SPEED;
 
-    // platformFloatingInterval = setInterval(function() {
-    //   context.spawnFloatingPlatform();
-    // }, 3000/(SPEED/100));
 
+  //   // this.spawnFloatingPlatform(350);
 
 
     fireInterval = setInterval(function() {
@@ -836,8 +860,15 @@ var state = {
     //   });
     // }, 200);
 
+  //   // platformFloatingInterval = setInterval(function() {
+  //   //   context.spawnFloatingPlatform();
+  //   // }, 3000/(SPEED/100));
 
-  },
+  //   // purpleDinoInterval = setInterval(function() {
+  //   //   context.spawnPurpleDino();
+  //   // }, 6000/(SPEED/100));
+
+  // },
 
   /*
     levelFly
@@ -845,9 +876,25 @@ var state = {
       Everything spawned for the water level and planning on adding other enemies
     author: Alex Leonetti
   */
-  levelFly: function() {
-    var context = this;
-    this.levelWater();
+  // levelFly: function() {
+  //   var context = this;
+  //   this.levelWater();
+  // }
+
+  spawnAllEntities: function (argument) {
+
+    invaderGreenInterval = setInterval(function (argument) {
+      this.spawnInvaderGreen();
+    }.bind(this), 5000); 
+
+    invaderYellowInterval = setInterval(function (argument) {
+      this.spawnInvaderYellow();
+    }.bind(this), 5000); 
+
+    invaderWhiteInterval = setInterval(function (argument) {
+      this.spawnInvaderWhite();
+    }.bind(this), 5000); 
+
   }
 }
 
@@ -858,6 +905,11 @@ var state = {
     Uses the state object within the phaser game.
   author: Alex Leonetti
 */
+
+
+
+
+
 var game = new Phaser.Game(
   960,
   680,
