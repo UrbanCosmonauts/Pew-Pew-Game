@@ -368,7 +368,7 @@ var state = {
         this.scoreTextP1 = this.add.text(
           10,
           10,
-          "0",
+          "",
           {
               size: "32px",
               fill: "#FFF",
@@ -376,11 +376,27 @@ var state = {
           }
         );
         this.scoreTextP1.anchor.setTo(0, 0);
-      } else if (NUM_PLAYERS === 2) {
+      } 
+
+      if (NUM_PLAYERS === 2) {
+
+        this.scoreTextP1 = this.add.text(
+          10,
+          10,
+          "",
+          {
+              size: "32px",
+              fill: "#FFF",
+              align: "center"
+          }
+        );
+
+        this.scoreTextP1.anchor.setTo(0, 0);
+
         this.scoreTextP2 = this.add.text(
           950,
           10,
-          "0",
+          "",
           {
               size: "32px",
               fill: "#FFF",
@@ -388,11 +404,40 @@ var state = {
           }
         );
         this.scoreTextP2.anchor.setTo(1, 0);
-      } else if (NUM_PLAYERS === 3) {
+
+      }
+
+      if (NUM_PLAYERS === 3) {
+
+        this.scoreTextP1 = this.add.text(
+          10,
+          10,
+          "",
+          {
+              size: "32px",
+              fill: "#FFF",
+              align: "center"
+          }
+        );
+
+        this.scoreTextP1.anchor.setTo(0, 0);
+
+        this.scoreTextP2 = this.add.text(
+          950,
+          10,
+          "",
+          {
+              size: "32px",
+              fill: "#FFF",
+              align: "center"
+          }
+        );
+        this.scoreTextP2.anchor.setTo(1, 0);
+
         this.scoreTextP3 = this.add.text(
           10,
           670,
-          "0",
+          "",
           {
               size: "32px",
               fill: "#FFF",
@@ -404,7 +449,7 @@ var state = {
         this.scoreTextP4 = this.add.text(
           950,
           670,
-          "0",
+          "",
           {
               size: "32px",
               fill: "#FFF",
@@ -436,6 +481,22 @@ var state = {
     this.physics.arcade.overlap(lasers, invaderYellows, function(group, item){
       item.kill();
     }, null, this);
+
+    this.physics.arcade.overlap(players, coins, function (group, item) {
+      item.kill();
+      group.score++;
+
+      if(group.key === "player1"){
+        this.scoreTextP1.setText(group.score);
+      }else if(group.key === "player2"){
+        this.scoreTextP2.setText(group.score);
+      }else if(group.key === "player3"){
+        this.scoreTextP3.setText(group.score);
+      }else if(group.key === "player4"){
+        this.scoreTextP4.setText(group.score);
+      }
+    }.bind(this));
+
 
     this.physics.arcade.overlap(lasers, invaderWhites, function(group, item){
       item.kill();
@@ -638,6 +699,7 @@ var state = {
     clearInterval(invaderYellowInterval);
     clearInterval(invaderWhiteInterval);
     clearInterval(invaderGreenInterval);
+    clearInterval(coinInterval);
 
 
 
