@@ -63,35 +63,35 @@
 <script src="js/controller.js"></script>
 <script>
 
-  var doOrientationChanges = function(orientation) {
-    orientation = orientation || window.orientation;
+  // var doOrientationChanges = function(orientation) {
+  //   orientation = orientation || window.orientation;
 
-    if (orientation === 0) {
-      document.querySelector('.control').classList.remove('rotate180');
-      document.querySelector('.control').classList.remove('rotate90left');
-      document.querySelector('.control').classList.add('rotate90right');
-    }
-    if (orientation == 180) {
-      document.querySelector('.control').classList.remove('rotate90left');
-      document.querySelector('.control').classList.remove('rotate90right');
-      document.querySelector('.control').classList.add('rotate180');
-    }
-    if (orientation == -90) {
-      document.querySelector('.control').classList.remove('rotate90left');
-      document.querySelector('.control').classList.remove('rotate90right');
-      document.querySelector('.control').classList.add('rotate180');
-    }
-    if (orientation == 90) {
-      document.querySelector('.control').classList.remove('rotate180');
-      document.querySelector('.control').classList.remove('rotate90right');
-      document.querySelector('.control').classList.remove('rotate90left');
-    }
-  };
+  //   if (orientation === 0) {
+  //     document.querySelector('.control').classList.remove('rotate180');
+  //     document.querySelector('.control').classList.remove('rotate90left');
+  //     document.querySelector('.control').classList.add('rotate90right');
+  //   }
+  //   if (orientation == 180) {
+  //     document.querySelector('.control').classList.remove('rotate90left');
+  //     document.querySelector('.control').classList.remove('rotate90right');
+  //     document.querySelector('.control').classList.add('rotate180');
+  //   }
+  //   if (orientation == -90) {
+  //     document.querySelector('.control').classList.remove('rotate90left');
+  //     document.querySelector('.control').classList.remove('rotate90right');
+  //     document.querySelector('.control').classList.add('rotate180');
+  //   }
+  //   if (orientation == 90) {
+  //     document.querySelector('.control').classList.remove('rotate180');
+  //     document.querySelector('.control').classList.remove('rotate90right');
+  //     document.querySelector('.control').classList.remove('rotate90left');
+  //   }
+  // };
 
-  window.addEventListener("orientationchange", function() {
-    doOrientationChanges(window.orientation);
-  }, false);
-  doOrientationChanges();
+  // window.addEventListener("orientationchange", function() {
+  //   doOrientationChanges(window.orientation);
+  // }, false);
+  // doOrientationChanges();
 
 </script>
 </body>
