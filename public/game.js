@@ -669,6 +669,10 @@ var state = {
     this.ledge.body.velocity.x = -SPEED;
     this.ledge.scale.setTo(2,2);
   },
+
+
+
+
   // spawnWater: function() {
   //   var context = this;
   //   waterInterval = setInterval(function(){
@@ -775,6 +779,12 @@ var state = {
     this.invaderWhite.body.velocity.x = -SPEED;
   },
 
+  spawnBoss: function(x,y){
+    this.boss = boss.create(x,y, 'boss');
+    this.physics.arcade.enableBody(this.boss);
+    this.boss.body.velocity.x = 0;
+  },
+
 
   /*
     levelWater
@@ -851,7 +861,12 @@ var state = {
 
 
 
-
+    coinInterval = setInterval(function() {
+      var y = Math.random()*370+150;
+      for (var i = 0; i<8; i++){
+        context.spawnCoin(1000+i*80, y);
+      }
+    }, 5000);
 
 
     // laserInterval = setInterval(function() {
