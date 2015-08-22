@@ -57,8 +57,8 @@ var invaderWhiteInterval;
 var invaderGreens;
 var invaderGreenInterval;
 
-var goldCoins;
-var goldCoinInterval;
+var coins;
+var coinInterval;
 
 var heartBonuses;
 var heartBonusInterval;
@@ -181,8 +181,12 @@ var state = {
     //heart
     this.load.image('heartlive', 'assets/hearts/heart-lives.png');
     this.load.image('heartbonus', 'assets/hearts/hearts-bonus.png');
-    // fire 
+    
+    //fire 
     this.load.image('fire', 'assets/fire/orange.png');
+    
+    //coins
+    this.load.image('coin', 'assets/coins/coin-10.png'); 
   },
 
   /*
@@ -252,6 +256,8 @@ var state = {
     players = game.add.group();
     players.enableBody = true;
 
+    coins = game.add.group();
+    coins.enableBody = true;
     /*
       player
       Description:
@@ -314,6 +320,12 @@ var state = {
   */
   update: function() {
     TIME++;
+
+    coins.forEach(function(c) {
+      if(c && c.body.x < -100) {
+        c.kill();
+      }
+    });
 
     invaderYellows.forEach(function(o) {
       if(o && o.body.x < -100) {
@@ -423,7 +435,6 @@ var state = {
         var yPosition = player.body.y + player.body.halfHeight;
         var xOffset = Math.cos(RAD_ANGLE[i])*60;
         var yOffset = Math.sin(RAD_ANGLE[i])*60;
-
         this.spawnLaser(xPosition + xOffset, yPosition + yOffset, i);
       }
 
@@ -720,6 +731,12 @@ var state = {
   //   this.purpleDino.body.velocity.x = -SPEED - 80;
   // },
 
+  spawnCoin: function(x,y){
+    this.coin = coins.create(x,y, 'coin');
+    this.physics.arcade.enableBody(this.coin);
+    this.coin.body.velocity.x = -200;
+  },
+
   spawnLaser: function(x,y,i) {
     this.laser = lasers.create(x, y, 'laser');
     this.physics.arcade.enableBody(this.laser);
@@ -833,6 +850,10 @@ var state = {
 
 
 
+
+
+
+
     // laserInterval = setInterval(function() {
     //   var xPosition = [];
     //   var yPosition = [];
@@ -882,6 +903,13 @@ var state = {
         this.spawnFire(xPosition[i] - xOffset[i], yPosition[i] - yOffset[i], i);
       }.bind(this));
     }.bind(this), 200);
+
+    coinInterval = setInterval(function() {
+      var y = Math.random()*370+150;
+      for (var i = 0; i<8; i++){
+        context.spawnCoin(1000+i*80, y);
+      }
+    }, 5000);
 
     invaderGreenInterval = setInterval(function (argument) {
       this.spawnInvaderGreen();
