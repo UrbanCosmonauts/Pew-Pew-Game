@@ -858,17 +858,6 @@ var state = {
 
 
 
-
-
-
-    coinInterval = setInterval(function() {
-      var y = Math.random()*370+150;
-      for (var i = 0; i<8; i++){
-        context.spawnCoin(1000+i*80, y);
-      }
-    }, 5000);
-
-
     // laserInterval = setInterval(function() {
     //   var xPosition = [];
     //   var yPosition = [];
@@ -905,6 +894,7 @@ var state = {
   // }
 
   spawnAllEntities: function (argument) {
+    var context = this;
     fireInterval = setInterval(function() {
       var xPosition = [];
       var yPosition = [];
