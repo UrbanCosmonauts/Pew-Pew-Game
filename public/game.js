@@ -62,6 +62,8 @@ var coinInterval;
 var heartBonuses;
 var heartBonusInterval;
 
+var boss;
+var bossInterval;
 
 var music;
 var musicArray = ['fox', 'gorillaz', 'lucky'];
@@ -186,6 +188,10 @@ var state = {
     
     //coins
     this.load.image('coin', 'assets/coins/coin-10.png'); 
+
+    //boss
+    this.load.image('boss', 'assets/boss/boss.png'); 
+
   },
 
   /*
@@ -280,6 +286,8 @@ var state = {
     invaderWhites = game.add.group();
     invaderYellows = game.add.group();
     heartBonuses = game.add.group();
+
+    boss = game.add.group();
 
 
 
@@ -584,9 +592,20 @@ var state = {
         // invaderGreen.body.velocity.y = -SPEED*Math.sin(game.time.now);
         // invaderGreen.body.velocity.x = SPEED*Math.cos(game.time.now);
     });
+    // invaderPinks.forEach(function(invaderPink){
+    //     invaderPink.body.velocity.y += Math.sin(TIME/10)*10;
+    //     // invaderGreen.body.velocity.y = -SPEED*Math.sin(game.time.now);
+    //     // invaderGreen.body.velocity.x = SPEED*Math.cos(game.time.now);
+    // });
 
     invaderWhites.forEach(function(invaderWhite){
         invaderWhite.body.y = Math.sin(TIME/10)*50 +420;
+        // invaderGreen.body.velocity.y = -SPEED*Math.sin(game.time.now);
+        // invaderGreen.body.velocity.x = SPEED*Math.cos(game.time.now);
+    });
+    
+    boss.forEach(function(boss){
+        boss.body.y = Math.sin(TIME/100)*60 + 200;
         // invaderGreen.body.velocity.y = -SPEED*Math.sin(game.time.now);
         // invaderGreen.body.velocity.x = SPEED*Math.cos(game.time.now);
     });
@@ -891,10 +910,18 @@ var state = {
     this.invaderWhite.body.velocity.x = -SPEED;
   },
 
-  spawnBoss: function(x,y){
-    this.boss = boss.create(x,y, 'boss');
+  spawnBoss: function(){
+    this.boss = boss.create(850,800, 'boss');
     this.physics.arcade.enableBody(this.boss);
+    this.boss.anchor.setTo(0.5, 0.5);
     this.boss.body.velocity.x = 0;
+  },
+
+  spawnInvaderPink: function(y){
+    this.invaderPink = invaderPinks.create(1000,y, 'enemy3');
+    this.physics.arcade.enableBody(this.invaderPink);
+    this.invaderPink.body.immovable = true;
+    this.invaderPink.body.velocity.x = -SPEED;
   },
 
 
@@ -1028,17 +1055,30 @@ var state = {
       }
     }, 5000);
 
+    bossInterval = setInterval(function() {
+      context.spawnBoss();
+    }, 20000);
+
     invaderGreenInterval = setInterval(function (argument) {
       this.spawnInvaderGreen();
-    }.bind(this), 5000); 
+    }.bind(this), 3000); 
 
     invaderYellowInterval = setInterval(function (argument) {
       this.spawnInvaderYellow();
-    }.bind(this), 5000); 
+    }.bind(this), 3000); 
 
     invaderWhiteInterval = setInterval(function (argument) {
       this.spawnInvaderWhite();
-    }.bind(this), 5000); 
+    }.bind(this), 3000); 
+
+    // invaderPinkInterval = setInterval(function() {
+    //   var y = Math.random()*370+150;
+    //   var delay = 0;
+    //   for(var i = 0; i<6; i++){
+    //     delay += 350;
+    //     (function(){setTimeout(function(y){context.spawnInvaderPink(400);}, delay);})();
+    //   }
+    // }, 2000);
 
   }
 }
